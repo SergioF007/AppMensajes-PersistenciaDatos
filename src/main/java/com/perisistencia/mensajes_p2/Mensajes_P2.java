@@ -29,6 +29,23 @@ public class Mensajes_P2 {
             
             response = sc.nextInt(); 
             
+            switch (response) {
+                case 1:
+                    MensajesService.creaMensaje();
+                    break;
+                case 2:
+                    MensajesService.listarMensajes();
+                    break;
+                case 3:
+                    MensajesService.editarMensaje();
+                    break;
+                case 4:
+                    MensajesService.borrarMensajes();
+                    break;                    
+                default:
+                    break;
+            }
+            
             
             
             
