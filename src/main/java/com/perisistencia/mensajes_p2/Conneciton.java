@@ -21,10 +21,11 @@ public class Conneciton {
         
         try{
             conection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "");
-            
+            /*
             if(conection != null){
                 System.out.println("Conexion Exitosa");
             }
+            */
         }catch(SQLDataException e){
             System.out.println(e);
         }

@@ -11,7 +11,7 @@ package com.perisistencia.mensajes_p2;
 public class MensajesDAO {
     
     //Van los metodos que me van a permitir la conexion con la base de datos
-    
+    // esta capa es la que ejecuta la instrucciones SQL o sus Querys
     public static void crecarMensajeDB(Mensajes mensaje) {
         
     }
