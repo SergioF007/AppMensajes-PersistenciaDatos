@@ -11,7 +11,7 @@ package com.perisistencia.mensajes_p2;
 public class Mensajes {
     
     // Modelo
-    int id_mensajes; // deveria llamarse IdMensajes
+    int id_mensaje; // deveria llamarse IdMensajes
     String mensaje; 
     String autor_mensaje;
     String fecha_mensaje;
@@ -30,11 +30,11 @@ public class Mensajes {
     }
     
     public int getId_mensajes() {
-        return id_mensajes;
+        return id_mensaje;
     }
 
     public void setId_mensajes(int id_mensajes) {
-        this.id_mensajes = id_mensajes;
+        this.id_mensaje = id_mensajes;
     }
 
     public String getMensaje() {

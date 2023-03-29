@@ -4,9 +4,13 @@
  */
 package com.perisistencia.mensajes_p2;
 
+import com.mysql.cj.xdevapi.PreparableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,13 +28,17 @@ public class MensajesDAO {
             
             PreparedStatement ps = null; 
             try {
+                /*
+                String query1 = "USE mensajes_app;";
+                ps = conexion.prepareStatement(query1);
+                ps.executeUpdate();  */
                 // Crearemos la Consulta para insertar Datos
-                String query="INSERT INTO `mensajes` (`mensaje`, `autor_mensaje`) VALUES (?, ?)"; 
-                ps=conexion.prepareStatement(query);
+                String query2 = "INSERT INTO `mensajes` (`mensaje`, `autor_mensaje`) VALUES (?, ?);"; 
+                ps=conexion.prepareStatement(query2);
                 // Preparamps el primer parametro
                 ps.setString(1, mensaje.getMensaje());
                 // Preparamos el segundo parametros
-                ps.setString(2, mensaje.autor_mensaje);
+                ps.setString(2, mensaje.getAutor_mensaje());
                 
                 //Vamos a Ejcutar el comando que se encarga de enviar o darle la
                 //instruccuon a la BD para que ejecute esta query. 
@@ -46,6 +54,29 @@ public class MensajesDAO {
     }
     public static void leerMensajesDB() {
         
+        Conneciton db_connect = new Conneciton(); 
+        PreparedStatement ps = null;  // Preapararacion del la varaible que va a ejecutar el Query
+        ResultSet rs = null; // Para listar los resultados
+        
+        try(Connection conexion = db_connect.get_connection()) {
+            
+            String query = "SELECT * FROM mensajes;"; 
+            ps = conexion.prepareStatement(query);  //  ejecuto la el query 
+            rs = ps.executeQuery();  // me lista el resultado del query 
+            System.out.println(":: Lista De Mensajes  \n");
+            
+            while(rs.next()) {                
+                
+                System.out.println("ID: " + rs.getInt("id_mensaje"));
+                System.out.println("Mensaje: " + rs.getString("mensaje"));
+                System.out.println("Ator: " + rs.getString("autor_mensaje"));
+                System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                System.out.println("-----------------------------------------------");   
+            }        
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    
     }
     public static void actualizarMensajesDB(Mensajes mensajes) {
         

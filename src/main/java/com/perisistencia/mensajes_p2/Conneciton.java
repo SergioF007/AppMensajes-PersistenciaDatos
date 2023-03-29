@@ -20,12 +20,13 @@ public class Conneciton {
         Connection conection = null;
         
         try{
-            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "");
+            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mensajes_app", "root", "");
+            
             /*
             if(conection != null){
                 System.out.println("Conexion Exitosa");
-            }
-            */
+            } */
+           
         }catch(SQLDataException e){
             System.out.println(e);
         }

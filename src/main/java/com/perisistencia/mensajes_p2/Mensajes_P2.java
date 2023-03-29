@@ -4,12 +4,12 @@
 
 package com.perisistencia.mensajes_p2;
 
-import java.sql.Connection;
+
 import java.util.Scanner;
 
 /**
  *
- * @author USER
+ * @author Sergio Fernandez Salazar
  */
 public class Mensajes_P2 {
 
@@ -45,13 +45,8 @@ public class Mensajes_P2 {
                 default:
                     break;
             }
-            
-            
-            
-            
         } while (response != 5);
         
-        Conneciton conexion = new Conneciton();
         
         /*
         try(Connection cnx = conexion.get_connection()) {

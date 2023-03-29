@@ -27,15 +27,17 @@ public class MensajesService {
         String nombre = sc.nextLine(); 
         
         Mensajes registroMensajes = new Mensajes();
-        registroMensajes.setAutor_mensaje(nombre);
         registroMensajes.setMensaje(mensaje);
+        registroMensajes.setAutor_mensaje(nombre);
+        
         
         // Despues de creado el objeto, lo enviamos a la capa DAO
         MensajesDAO.crecarMensajeDB(registroMensajes);
-        
     }
     
     public static void listarMensajes() {
+        
+        MensajesDAO.leerMensajesDB();
         
     }
     
