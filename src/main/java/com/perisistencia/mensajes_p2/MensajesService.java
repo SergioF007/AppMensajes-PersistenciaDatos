@@ -37,8 +37,18 @@ public class MensajesService {
     
     public static void listarMensajes() {
         
-        MensajesDAO.leerMensajesDB();
-        
+        Scanner sc = new Scanner(System.in); 
+        int response = 0; 
+        do {
+            System.out.println("\n");    
+            System.out.println("Seleccionae la Opcion Deseada: ");
+            System.out.println("1. Ver Todos los Mensajes");
+            System.out.println("2. Buscar los Mensajes por Autor");
+            System.out.println("3. Ver el utlimo Mensaje");
+            System.out.println("0. Salir ");
+            response = sc.nextInt(); 
+            MensajesDAO.leerMensajesDB(response);
+        } while(response != 0);  
     }
     
     public static void borrarMensajes() {

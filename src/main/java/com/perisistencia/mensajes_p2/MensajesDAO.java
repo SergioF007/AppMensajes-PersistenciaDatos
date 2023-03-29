@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -52,30 +53,84 @@ public class MensajesDAO {
             System.out.println(e);
         }    
     }
-    public static void leerMensajesDB() {
+    public static void leerMensajesDB(int opcion) {
         
         Conneciton db_connect = new Conneciton(); 
         PreparedStatement ps = null;  // Preapararacion del la varaible que va a ejecutar el Query
         ResultSet rs = null; // Para listar los resultados
         
-        try(Connection conexion = db_connect.get_connection()) {
+        switch (opcion) {
+            case 1:
+                try(Connection conexion = db_connect.get_connection()) {
             
-            String query = "SELECT * FROM mensajes;"; 
-            ps = conexion.prepareStatement(query);  //  ejecuto la el query 
-            rs = ps.executeQuery();  // me lista el resultado del query 
-            System.out.println(":: Lista De Mensajes  \n");
-            
-            while(rs.next()) {                
+                    String query = "SELECT * FROM mensajes;"; 
+                    ps = conexion.prepareStatement(query);  //  ejecuto la el query 
+                    rs = ps.executeQuery();  // me lista el resultado del query 
+                    System.out.println(":: Lista De Mensajes  \n");
+
+                    while(rs.next()) {                
+
+                        System.out.println("ID: " + rs.getInt("id_mensaje"));
+                        System.out.println("Mensaje: " + rs.getString("mensaje"));
+                        System.out.println("Ator: " + rs.getString("autor_mensaje"));
+                        System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                        System.out.println("-----------------------------------------------");   
+                    }        
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
                 
-                System.out.println("ID: " + rs.getInt("id_mensaje"));
-                System.out.println("Mensaje: " + rs.getString("mensaje"));
-                System.out.println("Ator: " + rs.getString("autor_mensaje"));
-                System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
-                System.out.println("-----------------------------------------------");   
-            }        
-        } catch (SQLException e) {
-            System.out.println(e);
+                break;
+            case 2:
+                
+                try(Connection conexion = db_connect.get_connection()) {
+                    
+                    Scanner sc = new Scanner(System.in); 
+                    System.out.println("Ingrese el nombre de autor ");
+                    String nombre = sc.nextLine(); 
+                    
+                    String query = "SELECT mensaje, fecha_mensaje FROM mensajes WHERE  LOWER(autor_mensaje) = LOWER(?)";
+                    ps = conexion.prepareStatement(query); 
+                    ps.setString(1, nombre);
+                    rs = ps.executeQuery();
+                    System.out.println("Mensajes de: " + nombre);
+                    while (rs.next()) {
+                        
+                        System.out.println("Mensaje: " + rs.getString("mensaje"));
+                        System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                        
+                    } 
+                
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+                break;
+            case 3:
+                
+                try(Connection conexion = db_connect.get_connection()) {
+     
+                    String query = "SELECT * FROM mensajes ORDER BY fecha_mensaje DESC LIMIT 1;";
+                    ps = conexion.prepareStatement(query);
+                    rs = ps.executeQuery();
+                    System.out.println("El ultimo mensaje guardado es: ");
+                    
+                    if (rs.next()) {
+                        
+                        System.out.println("Autor: " + rs.getString("autor_mensaje"));
+                        System.out.println("Mensaje: " + rs.getString("mensaje"));
+                        System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                        
+                    }
+
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+                break;
+            default:
+                break;
         }
+        
+        
     
     }
     public static void actualizarMensajesDB(Mensajes mensajes) {
