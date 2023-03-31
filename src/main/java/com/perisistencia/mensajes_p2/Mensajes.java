@@ -10,4 +10,54 @@ package com.perisistencia.mensajes_p2;
  */
 public class Mensajes {
     
+    // Modelo
+    int id_mensaje; // deveria llamarse IdMensajes
+    String mensaje; 
+    String autor_mensaje;
+    String fecha_mensaje;
+    //creo dos constructores
+    //1 constructor por defecto
+    
+    public Mensajes() {
+    }
+    
+    // Segundo constructor
+
+    public Mensajes(String mensaje, String autor_mensaje, String fecha_mensaje) {
+        this.mensaje = mensaje;
+        this.autor_mensaje = autor_mensaje;
+        this.fecha_mensaje = fecha_mensaje;
+    }
+    
+    public int getId_mensajes() {
+        return id_mensaje;
+    }
+
+    public void setId_mensajes(int id_mensajes) {
+        this.id_mensaje = id_mensajes;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getAutor_mensaje() {
+        return autor_mensaje;
+    }
+
+    public void setAutor_mensaje(String autor_mensaje) {
+        this.autor_mensaje = autor_mensaje;
+    }
+
+    public String getFecha_mensaje() {
+        return fecha_mensaje;
+    }
+
+    public void setFecha_mensaje(String fecha_mensaje) {
+        this.fecha_mensaje = fecha_mensaje;
+    }
 }
