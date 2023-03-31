@@ -23,9 +23,9 @@ public class MensajesDAO {
     // esta capa es la que ejecuta la instrucciones SQL o sus Querys
     public static void crecarMensajeDB(Mensajes mensaje) {
         
-        Conneciton db_connnet = new Conneciton();
+        Conneciton db_connet = new Conneciton();
         
-        try(Connection conexion = db_connnet.get_connection()) {
+        try(Connection conexion = db_connet.get_connection()) {
             
             PreparedStatement ps = null; 
             try {
@@ -55,13 +55,13 @@ public class MensajesDAO {
     }
     public static void leerMensajesDB(int opcion) {
         
-        Conneciton db_connect = new Conneciton(); 
+        Conneciton db_connet = new Conneciton(); 
         PreparedStatement ps = null;  // Preapararacion del la varaible que va a ejecutar el Query
         ResultSet rs = null; // Para listar los resultados
         
         switch (opcion) {
             case 1:
-                try(Connection conexion = db_connect.get_connection()) {
+                try(Connection conexion = db_connet.get_connection()) {
             
                     String query = "SELECT * FROM mensajes;"; 
                     ps = conexion.prepareStatement(query);  //  ejecuto la el query 
@@ -83,7 +83,7 @@ public class MensajesDAO {
                 break;
             case 2:
                 
-                try(Connection conexion = db_connect.get_connection()) {
+                try(Connection conexion = db_connet.get_connection()) {
                     
                     Scanner sc = new Scanner(System.in); 
                     System.out.println("Ingrese el nombre de autor ");
@@ -107,7 +107,7 @@ public class MensajesDAO {
                 break;
             case 3:
                 
-                try(Connection conexion = db_connect.get_connection()) {
+                try(Connection conexion = db_connet.get_connection()) {
      
                     String query = "SELECT * FROM mensajes ORDER BY fecha_mensaje DESC LIMIT 1;";
                     ps = conexion.prepareStatement(query);
@@ -133,11 +133,51 @@ public class MensajesDAO {
         
     
     }
-    public static void actualizarMensajesDB(Mensajes mensajes) {
+    public static void actualizarMensajesDB(Mensajes mensaje) {
+        
+        Conneciton db_connet = new Conneciton(); 
+        
+        PreparedStatement ps = null; 
+        
+        try(Connection conexion = db_connet.get_connection()) {
+            
+            
+            
+            try {            
+                
+                String query = "UPDATE mensajes SET mensaje = ? WHERE id_mensaje = ?;"; 
+                
+                ps = conexion.prepareStatement(query); 
+                ps.setString(1, mensaje.getMensaje());
+                ps.setInt(2, mensaje.getId_mensajes());
+                ps.executeUpdate(); 
+                System.out.println("Mensaje actualizado correctamente");
+                
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            } 
+
+        } catch (SQLException e) {
+            System.out.println(e); 
+        }
         
     }
-    public static void elimnarMensajes() {
+    public static void elimnarMensajes(int id) {
         
+        Conneciton db_connet = new Conneciton(); 
+       
+        try(Connection conexion = db_connet.get_connection()) {
+            
+            PreparedStatement ps = null;
+            
+            String query="DELETE FROM mensajes WHERE id_mensaje = ?"; 
+            ps = conexion.prepareStatement(query);
+            ps.setInt(1, id); 
+            ps.execute(); 
+            System.out.println("El mensajade con el id_mensaje = " + id + " Fue eliminado con Exitio");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
     }
     
 }
